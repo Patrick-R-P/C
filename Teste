@@ -1,0 +1,62 @@
+#include<stdio.h>
+
+
+int main() {
+
+    //imprime o cabecalho do nosso jogo
+    printf("*************************************\n");
+    printf("Bem vindo ao nosso jogo de advinhacao\n");
+    printf("*************************************\n");
+
+     int numerosecreto = 42;
+     int numerodetentativas = 5;
+
+     //printf("O numero %d e o secreto. Nao conta pra ninguem\n", numerosecreto); // aprendi a declarar um variavel
+     int chute;
+     int tentativas = 1;
+     double pontos = 1000;
+
+
+
+
+     while(1){
+
+
+     //scanf = le --  printf = imprime
+     printf("Tentativa %d\n", tentativas);
+     printf("Qual e o seu chute?\n");
+
+     scanf("%d", &chute);
+     printf("Seu chute foi %d\n", chute);
+
+     if(chute < 0){
+        printf("Voce nao pode chutar numeros negativos\n");
+        continue;
+
+     }
+
+     int acertou = (chute == numerosecreto);
+     int maior = chute > numerosecreto;
+
+     if(acertou){
+          printf("Parabens! Voce acertou!\n");
+          printf("Jogue de novo, voce e um bom jogador\n");
+          break;
+}
+
+
+       else if(maior){
+          printf("Seu chute foi maior que o numero secreto\n");
+          printf("%d", maior);
+       }
+       else {
+          printf("Seu chute foi menor que o numero secreto\n");
+}
+       tentativas++;
+       double pontosperdidos = (chute - numerosecreto) / 2.0;
+       pontos = pontos - pontosperdidos;
+    }
+    printf("Fim de jogo\n");
+    printf("Voce acertou em %d tentativas\n", tentativas);
+    printf("Total de pontos: %.1f\n", pontos);
+}
