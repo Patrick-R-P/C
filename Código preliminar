@@ -1,0 +1,129 @@
+# Análise Detalhada do Código do Jogo de Adivinhação
+
+Vou explicar linha por linha o que este programa faz:
+
+## Inclusão de Bibliotecas
+```c
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+```
+- Inclui bibliotecas necessárias:
+  - `stdio.h`: Para funções de entrada/saída como `printf` e `scanf`
+  - `stdlib.h`: Para funções como `abs` (valor absoluto)
+  - `time.h`: Para funções relacionadas a tempo como `time`
+
+## Função Principal
+```c
+int main() {
+```
+- Define a função principal que é o ponto de entrada do programa
+
+## Cabeçalho do Jogo
+```c
+    printf("*************************************\n");
+    printf("Bem vindo ao nosso jogo de advinhacao\n");
+    printf("*************************************\n");
+```
+- Imprime um cabeçalho decorativo para o jogo
+
+## Geração do Número Secreto
+```c
+    int segundos = time(0);
+    srand(segundos);
+    int numerogrande = rand();
+    int numerosecreto = numerogrande % 100;
+```
+- `time(0)`: Obtém o tempo atual em segundos desde 1/1/1970
+- `srand(segundos)`: Inicializa o gerador de números aleatórios com uma semente baseada no tempo
+- `rand()`: Gera um número aleatório grande
+- `% 100`: Restringe o número ao intervalo 0-99 (resto da divisão por 100)
+
+## Variáveis do Jogo
+```c
+    int chute;
+    int tentativas = 1;
+    double pontos = 1000;
+```
+- `chute`: Armazenará o palpite do jogador
+- `tentativas`: Contador de tentativas, começa em 1
+- `pontos`: Pontuação inicial do jogador (1000)
+
+## Loop Principal do Jogo
+```c
+    while(1) {
+```
+- Loop infinito (só termina quando o jogador acertar)
+
+## Interface com o Jogador
+```c
+    printf("Tentativa %d\n", tentativas);
+    printf("Qual e o seu chute?\n");
+    scanf("%d", &chute);
+    printf("Seu chute foi %d\n", chute);
+```
+- Mostra o número da tentativa atual
+- Pede e lê o palpite do jogador
+- Confirma o palpite digitado
+
+## Validação do Chute
+```c
+    if(chute < 0){
+        printf("Voce nao pode chutar numeros negativos\n");
+        continue;
+    }
+```
+- Verifica se o chute é negativo
+- Se for, ignora o resto do loop e volta ao início
+
+## Verificação do Chute
+```c
+    int acertou = (chute == numerosecreto);
+    int maior = chute > numerosecreto;
+```
+- `acertou`: Verifica se o chute é igual ao número secreto
+- `maior`: Verifica se o chute é maior que o número secreto
+
+## Respostas ao Jogador
+```c
+    if(acertou){
+        printf("Parabens! Voce acertou!\n");
+        printf("Jogue de novo, voce e um bom jogador\n");
+        break;
+    }
+    else if(maior){
+        printf("Seu chute foi maior que o numero secreto\n");
+        printf("%d", maior);
+    }
+    else {
+        printf("Seu chute foi menor que o numero secreto\n");
+    }
+```
+- Se acertou: Parabeniza e sai do loop com `break`
+- Se maior: Informa que o chute foi alto
+- Se menor: Informa que o chute foi baixo
+
+## Atualização de Pontuação
+```c
+    tentativas++;
+    double pontosperdidos = abs(chute - numerosecreto) / (double)2;
+    pontos = pontos - pontosperdidos;
+```
+- Incrementa o contador de tentativas
+- Calcula pontos perdidos baseado na diferença entre chute e número secreto
+- Atualiza a pontuação total
+
+## Final do Jogo
+```c
+    printf("Fim de jogo\n");
+    printf("Voce acertou em %d tentativas\n", tentativas);
+    printf("Total de pontos: %.1f\n", pontos);
+```
+- Mostra mensagem final com número de tentativas e pontuação
+
+## Fechamento
+```c
+}
+```
+- Fecha a função `main` e finaliza o programa
+
